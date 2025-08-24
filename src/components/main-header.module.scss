@@ -1,0 +1,33 @@
+.mainheader {
+    margin-bottom: 32px;
+
+    &::before {
+        content: "";
+        display: block;
+        height: 1px;
+        content: "";
+        background: linear-gradient(rgb(38, 12, 60), rgba(0, 0, 0, 0));
+        height: 50vh;
+        display: block;
+        position: absolute;
+        top: 0;
+        z-index: -1;
+        right: 0;
+        width: 100%;
+    }
+    
+    .mainheader__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+    ul {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+        margin: 0;
+        padding: 0;
+    }
+}

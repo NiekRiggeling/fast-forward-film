@@ -1,0 +1,17 @@
+.movie {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+
+    &:not(:last-child) {
+        margin-bottom: 20px;
+    }
+
+    .movie__details {
+        margin-top: 20px;
+
+        span {
+            font-size: 14px;
+        }
+    }
+}

@@ -1,0 +1,29 @@
+.add-movie {
+    padding: 2rem;
+
+    .add-movie__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1rem;
+
+        .form-group {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+         input:not(input[type="submit"]), 
+         select,        textarea {
+            flex: 1;
+            padding: 0.5rem;
+            border: 1px solid transparent;
+
+            &:focus {
+                outline: none;
+                border-color: #fff;
+            }
+        }
+    }
+}
+
+

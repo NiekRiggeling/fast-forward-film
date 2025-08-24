@@ -1,0 +1,11 @@
+.movies {
+    @media (min-width: 1280px) {
+       display: grid;
+       grid-template-columns: 1fr 1fr;
+       grid-gap: 32px
+    }
+
+    h2 span {
+        text-transform: capitalize;
+    }
+}
