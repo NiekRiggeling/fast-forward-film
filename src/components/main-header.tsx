@@ -9,7 +9,8 @@ export default function MainHeader() {
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>
-                    <li><a href="/movies">Movies</a></li>
+                    <li><a href="/movies">Current movies</a></li>
+                    <li><a href="/movie-archive">All movies</a></li>
                     <li><a href="/add-movie">Add a movie</a></li>
                 </ul>
             </nav>

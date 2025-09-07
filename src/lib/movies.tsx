@@ -2,6 +2,20 @@ import Database from "better-sqlite3";
 import { writeFile } from "fs/promises";
 import path from "path";
 
+// Movie type definition
+export type Movie = {
+  id: number;
+  title: string;
+  slug: string;
+  releaseYear: number;
+  description: string;
+  genre: string;
+  director: string;
+  movie_link: string;
+  posterUrl: string;
+  showings: string;
+};
+
 // Initialize or open the SQLite database
 const db = new Database("movies.db");
 
@@ -68,9 +82,23 @@ export function getAllMovies() {
   return stmt.all();
 }
 
-export function getMovieBySlug(slug: string) {
+export function getMovieBySlug(slug: string): Movie | undefined {
   const stmt = db.prepare("SELECT * FROM movies WHERE slug = ?");
-  return stmt.get(slug);
+  return stmt.get(slug) as Movie | undefined;
+}
+
+export function editMovieBySlug(slug: string, updatedMovie: Partial<Movie>) {
+  const fields = Object.keys(updatedMovie)
+    .map((key) => `${key} = ?`)
+    .join(", ");
+  const values = Object.values(updatedMovie);
+
+  const stmt = db.prepare(`
+    UPDATE movies
+    SET ${fields}
+    WHERE slug = ?
+  `);
+  stmt.run(...values, slug);
 }
 
 export function removeAllMovies() {

@@ -8,28 +8,38 @@ export default async function TodaysMovies({time}: {time: 'today' | 'tomorrow'})
   const movies = await getAllMovies();
 
   const today = new Date();
-  // Set data to tommorow for testing purposes
+
   if (time === 'tomorrow') {
     today.setDate(today.getDate() + 1);
   } 
+
+  // weekday long It is the full name of the day of the week, e.g., "Monday", "Tuesday", etc.
+  // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
   const todayName = today.toLocaleDateString("en-EN", { weekday: "long" });
 
   // Group movies by timeslot
   const groupedMovies: { [key: string]: any[] } = {};
+
+  // Initialize arrays for each base time
   baseTimes.forEach((time) => {
     groupedMovies[time] = [];
   });
 
   movies.forEach((movie: any) => {
     if (!movie.showings) return;
+
     let showings;
+    // Parse the showings JSON
     try {
       showings = JSON.parse(movie.showings);
     } catch {
       return;
     }
+
+    // Check if the movie is showing today at any of the base times
     showings.forEach((showing: any) => {
       if (showing.day === todayName && baseTimes.includes(showing.time)) {
+        // Add movie to the appropriate timeslot
         groupedMovies[showing.time].push(movie);
       }
     });
@@ -57,6 +67,7 @@ export default async function TodaysMovies({time}: {time: 'today' | 'tomorrow'})
 
           <div className={classes.movies__items}>
             {groupedMovies[time].length > 0 ? (
+              // Map over the movies in this timeslot
               groupedMovies[time].map((movie: any) => (
                 <div className={classes['movies__item-wrapper']} key={movie.id}>
                   <Movie {...movie} />

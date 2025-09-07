@@ -1,0 +1,13 @@
+.movie-archive {
+    padding: 20px 0;
+
+    .movies__item-wrapper {
+        padding: 12px 0;
+        border-bottom: 1px solid rgba($color: #fff, $alpha: .6);
+
+        img {
+            width: 120px;
+            height: auto;
+        }
+    }
+}
