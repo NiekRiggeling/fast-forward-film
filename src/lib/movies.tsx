@@ -106,4 +106,9 @@ export function removeAllMovies() {
   stmt.run();
 }
 
+export function removeMovieById(id: number) {
+  const stmt = db.prepare("DELETE FROM movies WHERE id = ?");
+  stmt.run(id);
+}
+
 // removeAllMovies();

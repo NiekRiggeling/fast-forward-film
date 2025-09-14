@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import PosterPreview from "@/components/poster-preview";
 import classes from "../../../add-movie/page.module.scss";
+import { removeMovieById } from "@/lib/movies";
 
 type Movie = {
   id: number;
@@ -70,6 +71,14 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
         
         fetchMovie();
     }, [slug]);
+
+    function deleteMovie(id: string) {
+        if (confirm("Are you sure you want to delete this movie?")) {
+            removeMovieById(parseInt(id));
+            // Redirect to movies list or homepage after deletion
+            router.push('/movies-archive');
+        }
+    }
 
     function handleShowingsChange(index: number, field: "day" | "time", value: string) {
         const updated = [...showings];
@@ -244,6 +253,8 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
                     <button type="submit" disabled={saving}>
                         {saving ? "Saving..." : "Update Movie"}
                     </button>
+
+                    <button type="button" className='button button--danger' onClick={() => deleteMovie(id.toString())}>Delete Movie</button>
                 </form>
             ) : (
                 <p>Movie not found</p>

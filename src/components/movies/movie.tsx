@@ -5,18 +5,6 @@ import classes from './movie.module.scss';
 import Link from 'next/link';
 
 export default function Movie({id, title, slug, releaseYear, description, posterUrl, director, genre}: {id: int, title: string, slug: string, releaseYear: number, description: string, posterUrl?: string, director?: string, genre?: string}) {
-
-    function editMovie(id: string) {
-        // logic to edit movie
-        return <Link href={`/movies/edit/${id}`}>Edit Movie</Link>;
-
-    }
-
-    function deleteMovie(id: string) {
-        // logic to delete movie
-        console.log("Delete movie with id:", id);
-    }
-
     
     return (
         <>
@@ -35,7 +23,6 @@ export default function Movie({id, title, slug, releaseYear, description, poster
         </Link>
 
         <Link className='button' href={`/movies/edit/${slug}`}>Edit Movie</Link>
-        <button className='button button--danger' onClick={() => deleteMovie(id.toString())}>Delete Movie</button>
         </>
     );
 }

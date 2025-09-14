@@ -1,3 +1,4 @@
+import Link from "next/link";
 import classes from "./main-header.module.scss";
 
 export default function MainHeader() {
@@ -5,7 +6,9 @@ export default function MainHeader() {
     <header className={classes.mainheader}>
       <div className="container">
         <div className={classes.mainheader__wrapper}>
-            <h1>Fast Forward Film</h1>
+            <Link href="/" className={classes.mainheader__logo}>
+                <h1>Fast Forward Film</h1>
+            </Link>
             <nav>
                 <ul>
                     <li><a href="/">Home</a></li>

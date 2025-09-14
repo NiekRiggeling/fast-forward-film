@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
 import MainHeader from "@/components/main-header";
 import { Roboto_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.scss";
 
 const roboto = Roboto_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"], // add weights as needed
+});
+
+const inter = Inter({
   subsets: ["latin"],
   weight: ["400", "700"], // add weights as needed
 });
@@ -20,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${roboto.className}`}>
+      <body className={`${roboto.className} ${inter.className}`}>
         <MainHeader />
         <main>
           <div className="container">

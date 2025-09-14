@@ -14,7 +14,7 @@ body {
   color: var(--foreground);
   background: var(--background);
   padding-top: 20px;
-  font-family: Roboto_Mono, Helvetica, sans-serif;
+  font-family: 'Inter', Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -43,16 +43,24 @@ a {
   }
 }
 
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Roboto Mono', monospace;
+    margin-bottom: 16px;
+}
+
 button,
 a.btn,
 .button {
     background-color: var(--button);
     color: white;
     border: none;
+    margin-right: 12px;
     padding: 10px 20px;
     cursor: pointer;
+    font-size: 14px;
     border: 1px solid transparent;
     transition: border-color 0.3s ease;
+    font-family: 'Inter', sans-serif;
 
     &:hover {
       border-color: #ffffff;
