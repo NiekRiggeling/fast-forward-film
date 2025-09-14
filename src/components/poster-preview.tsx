@@ -23,7 +23,7 @@ export default function PosterPreview() {
             {posterUrl ? (
                 <img src={posterUrl} alt="Movie Poster Preview" />
             ) : (
-                <p>No poster selected</p>
+                <h4>No poster selected</h4>
             )}
 
             <input

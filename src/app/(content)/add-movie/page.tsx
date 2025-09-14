@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTransitionRouter } from '@/lib/view-transitions';
 import classes from "./page.module.scss";
 import PosterPreview from "@/components/poster-preview";
 
@@ -11,7 +11,7 @@ const daysOfWeek = [
 const baseTimes = ["16:00", "20:00", "00:00"];
 
 export default function AddMovie() {
-  const router = useRouter();
+  const router = useTransitionRouter();
   const [loading, setLoading] = useState(false);
   const [showings, setShowings] = useState([{ day: "", time: "" }]);
 
@@ -42,6 +42,7 @@ export default function AddMovie() {
     });
 
     if (res.ok) {
+      // Navigate with view transition
       router.push("/movies");
     } else {
       setLoading(false);

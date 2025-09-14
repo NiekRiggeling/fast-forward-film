@@ -57,6 +57,7 @@ a.btn,
     margin-right: 12px;
     padding: 10px 20px;
     cursor: pointer;
+    display: inline-block;
     font-size: 14px;
     border: 1px solid transparent;
     transition: border-color 0.3s ease;
@@ -65,4 +66,67 @@ a.btn,
     &:hover {
       border-color: #ffffff;
     }
+
+    &--danger {
+      background-color: #b00020;
+    }
+}
+
+/* View Transition Styles */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.4s;
+  animation-timing-function: ease-in-out;
+}
+
+::view-transition-old(root) {
+  animation-name: fade-out, slide-out;
+}
+
+::view-transition-new(root) {
+  background-color: red;
+  animation-name: fade-in, slide-in;
+}
+
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes slide-out {
+  to {
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(30px);
+  }
+}
+
+/* Smooth transitions for specific elements */
+.home,
+section {
+  view-transition-name: main-content;
+}
+
+h1, h2 {
+  view-transition-name: page-title;
+}
+
+/* Optional: Add specific transitions for movie cards */
+.home__movie_item {
+  view-transition-name: movie-card;
 }

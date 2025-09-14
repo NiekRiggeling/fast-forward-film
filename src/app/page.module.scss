@@ -1,6 +1,15 @@
 .home__movies {
     margin-top: 32px;
-    display: grid;
-    justify-content: center;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+
+    .home__movie_item{
+        width: 20%;
+        aspect-ratio: 2/3;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
 }

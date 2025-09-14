@@ -11,10 +11,10 @@ export default function MainHeader() {
             </Link>
             <nav>
                 <ul>
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/movies">Current movies</a></li>
-                    <li><a href="/movie-archive">All movies</a></li>
-                    <li><a href="/add-movie">Add a movie</a></li>
+                    <li><Link href="/">Home</Link></li>
+                    <li><Link href="/movies">Current movies</Link></li>
+                    <li><Link href="/movie-archive">All movies</Link></li>
+                    <li><Link href="/add-movie">Add a movie</Link></li>
                 </ul>
             </nav>
         </div>

@@ -9,7 +9,7 @@ export default async function Home() {
   return (
     <section className="home">
         <h1 className="home__title">
-          A platform to explore and discover films from around the world.
+          Classic movies brought to today&apos;s audience
         </h1>
 
         <div className={classes.home__movies}>

@@ -1,10 +1,9 @@
 "use client";   
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useTransitionRouter } from "@/lib/view-transitions";
 import PosterPreview from "@/components/poster-preview";
 import classes from "../../../add-movie/page.module.scss";
-import { removeMovieById } from "@/lib/movies";
 
 type Movie = {
   id: number;
@@ -32,7 +31,7 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
     const [saving, setSaving] = useState(false);
     const [error, setError] = useState<string>("");
     const [showings, setShowings] = useState([{ day: "", time: "" }]);
-    const router = useRouter();
+    const router = useTransitionRouter();
 
     useEffect(() => {
         async function getSlug() {
@@ -74,9 +73,25 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
 
     function deleteMovie(id: string) {
         if (confirm("Are you sure you want to delete this movie?")) {
-            removeMovieById(parseInt(id));
-            // Redirect to movies list or homepage after deletion
-            router.push('/movies-archive');
+            deleteMovieAsync(id);
+        }
+    }
+
+    async function deleteMovieAsync(movieId: string) {
+        try {
+            const response = await fetch(`/api/movies/${slug}`, {
+                method: "DELETE",
+            });
+
+            if (!response.ok) {
+                throw new Error("Failed to delete movie");
+            }
+
+            // Redirect to movies list after deletion with view transition
+            router.push('/movies');
+        } catch (error) {
+            console.error("Error deleting movie:", error);
+            setError("Failed to delete movie");
         }
     }
 
@@ -115,7 +130,7 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
                 throw new Error("Failed to update movie");
             }
 
-            // Redirect to movie detail page
+            // Redirect to movie detail page with view transition
             router.push(`/movie-archive`);
         } catch (error) {
             console.error("Error updating movie:", error);
@@ -168,7 +183,7 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
                     </div>
 
                     <div>
-                        <label>Showings (day & time):</label>
+                        <h4>Showings (day & time):</h4>
                         {showings.map((showing, idx) => (
                             <div key={idx} style={{ display: "flex", gap: "0.5rem", marginBottom: "0.5rem" }}>
                                 <select
@@ -236,7 +251,8 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
                     />
                     
                     <div>
-                        <label>Current Poster:</label>
+                        <h4>Current Poster:</h4>
+
                         {movie.posterUrl && (
                             <img 
                                 src={movie.posterUrl} 
@@ -245,16 +261,18 @@ export default function EditMovie({ params }: { params: Promise<{ slug: string }
                             />
                         )}
                         <PosterPreview />
-                        <p style={{ fontSize: "0.9em", color: "#666" }}>
+                        <h4 style={{ fontSize: "0.9em", color: "#666" }}>
                             Leave empty to keep current poster
-                        </p>
+                        </h4>
                     </div>
 
-                    <button type="submit" disabled={saving}>
-                        {saving ? "Saving..." : "Update Movie"}
-                    </button>
+                    <div className={classes['add-movie__buttons']}>
+                        <button type="submit" disabled={saving}>
+                            {saving ? "Saving..." : "Update Movie"}
+                        </button>
 
-                    <button type="button" className='button button--danger' onClick={() => deleteMovie(id.toString())}>Delete Movie</button>
+                        <button type="button" className='button button--danger' onClick={() => deleteMovie(movie.id.toString())}>Delete Movie</button>
+                    </div>
                 </form>
             ) : (
                 <p>Movie not found</p>

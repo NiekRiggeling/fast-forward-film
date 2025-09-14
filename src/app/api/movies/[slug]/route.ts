@@ -1,4 +1,4 @@
-import { getMovieBySlug, editMovieBySlug } from "@/lib/movies";
+import { getMovieBySlug, editMovieBySlug, removeMovieById } from "@/lib/movies";
 import { NextRequest, NextResponse } from "next/server";
 import { writeFile } from "fs/promises";
 import path from "path";
@@ -85,6 +85,32 @@ export async function PUT(
     console.error("Error updating movie:", error);
     return NextResponse.json(
       { error: "Failed to update movie" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  try {
+    const { slug } = await params;
+    
+    // Check if movie exists first
+    const existingMovie = getMovieBySlug(slug);
+    if (!existingMovie) {
+      return NextResponse.json({ error: "Movie not found" }, { status: 404 });
+    }
+
+    // Delete the movie by ID
+    removeMovieById(existingMovie.id);
+    
+    return NextResponse.json({ message: "Movie deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting movie:", error);
+    return NextResponse.json(
+      { error: "Failed to delete movie" },
       { status: 500 }
     );
   }

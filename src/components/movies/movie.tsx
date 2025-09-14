@@ -4,7 +4,7 @@ import Image from 'next/image';
 import classes from './movie.module.scss';
 import Link from 'next/link';
 
-export default function Movie({id, title, slug, releaseYear, description, posterUrl, director, genre}: {id: int, title: string, slug: string, releaseYear: number, description: string, posterUrl?: string, director?: string, genre?: string}) {
+export default function Movie({id, title, slug, releaseYear, description, posterUrl, director, genre}: {id: number, title: string, slug: string, releaseYear: number, description: string, posterUrl?: string, director?: string, genre?: string}) {
     
     return (
         <>
