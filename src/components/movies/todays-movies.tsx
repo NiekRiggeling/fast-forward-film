@@ -13,8 +13,7 @@ export default async function TodaysMovies({time}: {time: 'today' | 'tomorrow'})
     today.setDate(today.getDate() + 1);
   } 
 
-  // weekday long It is the full name of the day of the week, e.g., "Monday", "Tuesday", etc.
-  // see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
+  // weekday long is the full name of the day of the week, e.g., "Monday", "Tuesday", etc.
   const todayName = today.toLocaleDateString("en-EN", { weekday: "long" });
 
   // Group movies by timeslot
@@ -48,7 +47,7 @@ export default async function TodaysMovies({time}: {time: 'today' | 'tomorrow'})
   return (
     <section className={classes.movies}>
       <h2><span>{time}s</span> movies</h2>
-      <p>There {Object.values(groupedMovies).flat().length > 0 ? "are" : "is"} {Object.values(groupedMovies).flat().length} movie{Object.values(groupedMovies).flat().length !== 1 ? "s" : ""} on {time}.</p>
+      <p>There {Object.values(groupedMovies).flat().length > 1 || Object.values(groupedMovies).flat().length === 0 ? "are" : "is"} {Object.values(groupedMovies).flat().length} movie{Object.values(groupedMovies).flat().length !== 1 ? "s" : ""} on {time}.</p>
 
       <div className={classes.movies__days}>
         <h3>

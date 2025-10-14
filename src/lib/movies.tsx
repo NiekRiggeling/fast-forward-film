@@ -50,6 +50,12 @@ export async function saveMovie(movie: {
   let posterUrl = "";
 
   if (movie.posterFile) {
+    // Make a buffer (temporary storage area for data that is being transferred between two locations.)
+    // What is the use of Buffer.from here?
+    // Buffer.from creates a new buffer containing the data from the provided ArrayBuffer.
+    // This is necessary because the writeFile function expects a Buffer or string as input.
+    // The ArrayBuffer represents the raw binary data of the file, and converting it to a Buffer allows us to handle it in Node.js.
+    // In summary, Buffer.from is used here to convert the file data into a format suitable for writing to the filesystem.
     const buffer = Buffer.from(await movie.posterFile.arrayBuffer());
     const fileName = `${Date.now()}-${movie.posterFile.name}`;
     // process.cwd returns the current working directory
@@ -83,12 +89,15 @@ export function getAllMovies() {
 }
 
 export function getMovieBySlug(slug: string): Movie | undefined {
+  // Define function variable with ? in the query to prevent SQL injection attacks
   const stmt = db.prepare("SELECT * FROM movies WHERE slug = ?");
   return stmt.get(slug) as Movie | undefined;
 }
 
 export function editMovieBySlug(slug: string, updatedMovie: Partial<Movie>) {
   const fields = Object.keys(updatedMovie)
+    // Join the keys with = ? to create the SQL SET clause
+    // title = ?, releaseYear = ?, etc.
     .map((key) => `${key} = ?`)
     .join(", ");
   const values = Object.values(updatedMovie);

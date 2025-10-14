@@ -8,10 +8,7 @@ export default async function Home() {
 
   return (
     <section className="home">
-        <h1 className="home__title">
-          Classic movies brought to today&apos;s audience
-        </h1>
-
+      
         <div className={classes.home__movies}>
           {movies.map((movie: any) => (
               <div className={classes.home__movie_item} key={movie.id}>
